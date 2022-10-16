@@ -16,6 +16,16 @@
 -include hardware/qcom/display/config/display-board.mk
 -include hardware/qcom/display/config/display-product.mk
 
+SOONG_CONFIG_NAMESPACES += lights
+SOONG_CONFIG_lights += lighttargets
+ifeq ($(PLATFORM_VERSION), $(filter $(PLATFORM_VERSION),R 11))
+  SOONG_CONFIG_lights_lighttargets := lightaidltarget
+endif
+
+ifeq ($(PLATFORM_VERSION), $(filter $(PLATFORM_VERSION),S T 12 13))
+  SOONG_CONFIG_lights_lighttargets := lightaidlV1target
+endif
+
 # Enable Legacy Lights HAL for <5.10 targets
 ifneq (,$(filter 3.18 4.4 4.9 4.14 4.19 5.4, $(TARGET_KERNEL_VERSION)))
 
